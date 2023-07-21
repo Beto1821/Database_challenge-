@@ -9,19 +9,27 @@ The challenge was to create a table called 'AverageLifeExpectancy' with the info
 
 ## Methodology
 
-
 Database 'World' was downloading https://dev.mysql.com/doc/index-other.html and importing it to use.
 Run on docker container with the following command:
-docker run -d --name DB_CONTAINER -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 mysql:latest
 
-Used the 'MySQL Workbench' tool, to analyze all the data and to create the table requested in the challenge using query abouve:
+```docker run -d --name DB_CONTAINER -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3306 mysql:latest```
 
+After downloading the 'World' database and importing it to use. I used the 'MySQL Workbench' tool, to analyze all the data and to create the table requested in the challenge.
+
+First I found the 'Life Expectancy' and 'Continent' columns at the country table with the query: 
+```sql
+SELECT * FROM world.country;
+```
+
+And then create the following query: 
+```sql
 CREATE TABLE AverageLifeExpectancy AS
 SELECT ROUND(AVG(LifeExpectancy)) AS LifeProm, Continent AS Region
 FROM world.country
 WHERE Continent IN ('South America', 'North America', 'Asia')
 GROUP BY Continent
 ORDER BY Continent DESC;
+```
 
 
 ## AverageLifeExpectancy table
@@ -34,4 +42,4 @@ The resulting table is:
 |    73    | North America |
 |    67    |      Asia     |
 
-# Database_challenge-
+## By Adalberto
